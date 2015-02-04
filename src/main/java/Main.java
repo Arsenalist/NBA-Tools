@@ -34,7 +34,7 @@ public class Main extends HttpServlet {
         NBA nba = new NBA();
         String html =nba.preview(team);
         resp.getWriter().print(
-                "<html><head><style>body {font-family: garamond}" + css + "</style></head><body> <p>Copy this HTML/CSS into your site. It adapts to your site's existing look. Feel free to modify CSS if you know how.</p> <textarea onclick='this.select()'>" + css + html + "</textarea><hr/>" +
+                "<html><head><style>body {font-family: arial}" + css + "</style></head><body> <p>Copy this HTML/CSS into your site. It adapts to your site's existing look. Feel free to modify CSS if you know how.</p> <textarea onclick='this.select()'>" + css + html + "</textarea><hr/>" +
                 html
                 +
                         "</body></html>"
