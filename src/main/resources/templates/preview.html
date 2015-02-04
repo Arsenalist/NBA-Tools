@@ -1,0 +1,103 @@
+<table class="common">
+    <tr>
+        <td>
+            <h3 class="game-description">${gameInfo.awayName} vs ${gameInfo.homeName}</h3>
+            <p class="tv">
+                ${gameInfo.time} - ${gameInfo.tv}
+            </p>
+            <#if gameInfo.line?has_content>
+            <p class="odds">
+                Line: ${gameInfo.line}, O/U: ${gameInfo.overUnder}
+            </p>
+            </#if>
+            <p class="venue">
+                ${gameInfo.stadium} - ${gameInfo.location}
+            </p>
+            <h4 class="headToHead">Recent Matchups</h4>
+            <ul class="headToHead">
+                <#list headToHead as r>
+                    <li>${r.gameDate} ${r.away} <a href="${r.boxScoreUrl}">${r.awayScore}-${r.homeScore}</a> ${r.home}</li>
+                </#list>
+            </ul>
+
+        </td>
+    </tr>
+</table>
+<table class="preview">
+    <tr>
+        <td class="logo">
+            <img src="${gameInfo.awayLogo}"/>
+            <ul class="standings">
+                <li>Record: ${away.standings.record} (${away.standings.recentRecord})</li>
+                <li>${away.standings.conference} (${away.standings.conferenceStanding}), ${away.standings.division} (${away.standings.divisionStanding})</li>
+            </ul>
+        </td>
+        <td>
+            <h4 class="ranks">Ranks</h4>
+            <ul class="ranks">
+                <li>${away.rank.ortg} ORTG (${away.rank.ortgRank})</li>
+                <li>${away.rank.drtg} DRTG (${away.rank.drtgRank})</li>
+                <li>${away.rank.pace} Pace (${away.rank.paceRank})</li>
+                <li>${away.rank.drb} DRB% (${away.rank.drbRank})</li>
+                <li>${away.rank.ts} DRB% (${away.rank.tsRank})</li>
+            </ul>
+        </td>
+        <td>
+            <h4 class="results">Latest Results</h4>
+            <ul class="results">
+                <#list away.results as r>
+                    <li>${r.gameDate} ${r.away} <a href="${r.boxScoreUrl}">${r.awayScore}-${r.homeScore}</a> ${r.home}</li>
+                </#list>
+            </ul>
+        </td>
+        <td colspan="2">
+            <h4 class="leaders">Leaders</h4>
+            <ul class="leaders">
+                <li>${away.leaders.ppg.name} ${away.leaders.ppg.ppg} ppg</li>
+                <li>${away.leaders.rpg.name} ${away.leaders.rpg.rpg} rpg</li>
+                <li>${away.leaders.apg.name} ${away.leaders.apg.apg} apg</li>
+                <li>${away.leaders.bpg.name} ${away.leaders.bpg.bpg} bpg</li>
+                <li>${away.leaders.spg.name} ${away.leaders.spg.spg} spg</li>
+            </ul>
+        </td>
+    </tr>
+</table>
+<table class="preview">
+    <tr>
+        <td class="logo">
+            <img src="${gameInfo.homeLogo}"/>
+            <ul class="standings">
+                <li>Record: ${home.standings.record} (${home.standings.recentRecord})</li>
+                <li>${home.standings.conference} (${home.standings.conferenceStanding}), ${home.standings.division} (${home.standings.divisionStanding})</li>
+            </ul>
+        </td>
+        <td>
+            <h4 class="ranks">Ranks</h4>
+            <ul class="ranks">
+                <li>${home.rank.ortg} ORTG (${home.rank.ortgRank})</li>
+                <li>${home.rank.drtg} DRTG (${home.rank.drtgRank})</li>
+                <li>${home.rank.pace} Pace (${home.rank.paceRank})</li>
+                <li>${home.rank.drb} DRB% (${home.rank.drbRank})</li>
+                <li>${home.rank.ts} DRB% (${home.rank.tsRank})</li>
+            </ul>
+        </td>
+        <td>
+            <h4 class="results">Latest Results</h4>
+            <ul class="results">
+                <#list home.results as r>
+                    <li>${r.gameDate} ${r.away} <a href="${r.boxScoreUrl}">${r.awayScore}-${r.homeScore}</a> ${r.home}</li>
+                </#list>
+            </ul>
+        </td>
+        <td colspan="2">
+            <h4 class="leaders">Leaders</h4>
+            <ul class="leaders">
+                <li>${home.leaders.ppg.name} ${home.leaders.ppg.ppg} ppg</li>
+                <li>${home.leaders.rpg.name} ${home.leaders.rpg.rpg} rpg</li>
+                <li>${home.leaders.apg.name} ${home.leaders.apg.apg} apg</li>
+                <li>${home.leaders.bpg.name} ${home.leaders.bpg.bpg} bpg</li>
+                <li>${home.leaders.spg.name} ${home.leaders.spg.spg} spg</li>
+            </ul>
+        </td>
+    </tr>
+</table>
