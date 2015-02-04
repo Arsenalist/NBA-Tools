@@ -2,20 +2,33 @@ import java.io.IOException;
 import javax.servlet.ServletException;
 import javax.servlet.http.*;
 
+import freemarker.template.Configuration;
+import freemarker.template.Template;
+import freemarker.template.TemplateExceptionHandler;
+import freemarker.template.Version;
 import org.eclipse.jetty.server.Server;
 import org.eclipse.jetty.servlet.*;
 
+import java.io.StringWriter;
 import java.net.URI;
 import java.net.URISyntaxException;
 import java.sql.*;
-import java.util.ArrayList;
-import java.util.Collections;
-import java.util.Enumeration;
-import java.util.ResourceBundle;
+import java.util.*;
 
 public class Main extends HttpServlet {
+    public static Configuration cfg = new Configuration();
+static {
 
-    static String css = ".common,.preview{width:100%;background:#fff;color:#222}.common td,.preview td{vertical-align:top;font-size:.8em;font-family:inherit;padding:5px}.common{text-align:center}.common .game-description{margin:5px;font-size:1.8em;padding:0}.common ul li{display:inline-block;background:#fafafa;margin:6px}.common p.tv,.common p.venue,p.odds{font-weight:700;font-size:1.1em}.preview table .logo{text-align:center}.common ul li,.preview ul li{padding:3px;line-height:1em}.common ul,.preview ul{list-style-type:none;margin:0;padding:0}.preview h4{text-align:center;background:#eee;padding:5px}.preview .logo{text-align:center}";
+
+    // Where do we load the templates from:
+    cfg.setClassForTemplateLoading(NBA.class, "templates");
+    // Some other recommended settings:
+    cfg.setIncompatibleImprovements(new Version(2, 3, 20));
+    cfg.setDefaultEncoding("UTF-8");
+    cfg.setLocale(Locale.US);
+    cfg.setTemplateExceptionHandler(TemplateExceptionHandler.RETHROW_HANDLER);
+}
+    static String css = "table.common,table.preview{width:100%;background:#fff;color:#222}.common,.common td,.preview,.preview td{vertical-align:top;font-size:.8em;font-family:inherit;padding:5px}.common{text-align:center}.common .game-description{margin:5px;font-size:1.8em;padding:0}.common ul li{display:inline-block;background:#fafafa;margin:6px}.common p.tv,.common p.venue,p.odds{font-weight:700;font-size:1.1em}.preview .logo,.preview table .logo{text-align:center}.common ul li,.preview ul li{padding:3px;line-height:1em}.common ul,.preview ul{list-style-type:none;margin:0;padding:0}.preview h4{text-align:center;background:#eee;padding:5px}.preview .logo{text-align:center}";
 
     @Override
     protected void doGet(HttpServletRequest req, HttpServletResponse resp)
@@ -24,27 +37,28 @@ public class Main extends HttpServlet {
             if (req.getRequestURI().endsWith("/")) {
                 resp.sendRedirect("/preview");
             } else if (req.getRequestURI().endsWith("/preview")) {
-                String form = "<html><body><p>This app makes you some nice fast-loading HTML that you can paste into your site for game previews. Beta and without warranty. Bugs/feature requests to zarars@gmail.com</p><p>It's a bit slow so be patient please.</p><form id=\"form\" action=\"/result\"><select name=\"team\" onchange=\"document.getElementById('form').submit()\"><option>Select your team</option>";
                 ResourceBundle bundle = ResourceBundle.getBundle("bref_to_thescore");
                 Enumeration<String> keys = bundle.getKeys();
                 ArrayList<String> list = Collections.list(keys);
                 Collections.sort(list);
-                for (String key : list) {
-                    form += "<option value=\"" + key + "\">" + key + "</option>";
-                }
-                form += "</select></body></html>";
-                resp.getWriter().print(form);
-
+                Map<String, Object> data = new HashMap<String, Object>();
+                data.put("teams", list);
+                Template template = Main.cfg.getTemplate("preview-form.html");
+                StringWriter writer = new StringWriter();
+                template.process(data, writer);
+                resp.getWriter().print(writer.getBuffer().toString());
             } else if (req.getRequestURI().endsWith("/result")) {
                 String team = req.getParameter("team");
+                boolean responsive = req.getParameter("responsive") != null;
                 NBA nba = new NBA();
-                String html = nba.preview(team);
-                resp.getWriter().print(
-                        "<html><head><style>body {font-family: arial}" + css + "</style></head><body> <p>Copy this HTML/CSS into your site. It adapts to your site's existing look. Feel free to modify CSS if you know how.</p> <textarea onclick='this.select()'>" + css + html + "</textarea><hr/>" +
-                                html
-                                +
-                                "</body></html>"
-                );
+                String html = nba.preview(team, responsive);
+                Template template = Main.cfg.getTemplate("result.html");
+                StringWriter writer = new StringWriter();
+                Map<String, String> data = new HashMap<String, String>();
+                data.put("css", css);
+                data.put("html", html);
+                template.process(data, writer);
+                resp.getWriter().print(writer.getBuffer().toString());
             } else {
                 showHome(req, resp);
             }

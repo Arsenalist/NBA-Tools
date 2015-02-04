@@ -12,18 +12,9 @@ import java.text.*;
 
 public class NBA {
 
-	public String preview(String team) throws Exception {
+	public String preview(String team, boolean responsive) throws Exception {
 
-	    Configuration cfg = new Configuration();
-	    
-	    // Where do we load the templates from:
-	    cfg.setClassForTemplateLoading(NBA.class, "templates");    
-	    // Some other recommended settings:
-	    cfg.setIncompatibleImprovements(new Version(2, 3, 20));
-	    cfg.setDefaultEncoding("UTF-8");
-	    cfg.setLocale(Locale.US);
-	    cfg.setTemplateExceptionHandler(TemplateExceptionHandler.RETHROW_HANDLER);
-	    Template template = cfg.getTemplate("preview.html");
+	    Template template = Main.cfg.getTemplate(responsive ? "bootstrap-preview.html" : "preview.html");
 
 	   	String otherTeam = getNextOpponent(team);
 	    int scoreId = getScoreIdFromBrefCode(team);
@@ -67,7 +58,6 @@ public class NBA {
 
 
 
-	    // Write output to the console
 	    StringWriter writer = new StringWriter();
 	    template.process(data, writer);
 	    return writer.getBuffer().toString();
