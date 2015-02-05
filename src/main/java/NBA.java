@@ -82,8 +82,9 @@ public class NBA {
 		}
 		gameInfo.tv = tv;
 		SimpleDateFormat sdf = new SimpleDateFormat("EEE, d MMM yyyy HH:mm:ss Z");
-		sdf.setTimeZone(TimeZone.getTimeZone("America/New_York"));
-		gameInfo.time = new SimpleDateFormat("EEE MMM d, h:mm a").format(sdf.parse(game.getString("game_date"))) + " EST";
+        SimpleDateFormat simpleDateFormat = new SimpleDateFormat("EEE MMM d, h:mm a");
+        simpleDateFormat.setTimeZone(TimeZone.getTimeZone("America/New_York"));
+        gameInfo.time = simpleDateFormat.format(sdf.parse(game.getString("game_date"))) + " EST";
 		gameInfo.awayLogo = game.getJSONObject("away_team").getJSONObject("logos").getString("small");
 		gameInfo.awayName = game.getJSONObject("away_team").getString("full_name");
 		gameInfo.awayId = game.getJSONObject("away_team").getInt("id");
@@ -257,7 +258,7 @@ public class NBA {
 
 		Collections.sort(teamSeasons, new TeamSeasonComparator("drtg"));
 		for (int i=0; i<teamSeasons.size(); i++) {
-			teamSeasons.get(i).drtgRank = i+1;
+			teamSeasons.get(i).drtgRank = Math.abs(teamSeasons.size() - (i + 1)) + 1;
 		}
 
 		Collections.sort(teamSeasons, new TeamSeasonComparator("pace"));
