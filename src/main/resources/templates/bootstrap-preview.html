@@ -21,14 +21,16 @@
     </div>
 </div>
 <div class="row preview">
-    <div class="col-xs-3 logo">
+    <div class="col-xs-12 col-sm-3 logo">
         <img src="${gameInfo.awayLogo}"/>
         <ul class="standings">
             <li>Record: ${away.standings.record} (${away.standings.recentRecord})</li>
-            <li>${away.standings.conference} (${away.standings.conferenceStanding}), ${away.standings.division} (${away.standings.divisionStanding})</li>
+            <li>${away.standings.conference} (${away.standings.conferenceStanding})</li>
+            <li>${away.standings.division} (${away.standings.divisionStanding})</li>
         </ul>
     </div>
-    <div class="col-xs-3">
+    <div class="clearfix visible-xs-block"></div>
+    <div class="col-xs-12 col-sm-3">
         <h4 class="ranks">Ranks</h4>
         <ul class="ranks">
             <li>${away.rank.ortg} ORTG (${away.rank.ortgRank})</li>
@@ -38,7 +40,8 @@
             <li>${away.rank.ts} DRB% (${away.rank.tsRank})</li>
         </ul>
     </div>
-    <div class="col-xs-3">
+    <div class="clearfix visible-xs-block"></div>
+    <div class="col-xs-12 col-sm-3">
         <h4 class="results">Latest Results</h4>
         <ul class="results">
             <#list away.results as r>
@@ -46,7 +49,8 @@
             </#list>
         </ul>
     </div>
-    <div class="col-xs-3">
+    <div class="clearfix visible-xs-block"></div>
+    <div class="col-xs-12 col-sm-3">
         <h4 class="leaders">Leaders</h4>
         <ul class="leaders">
             <li>${away.leaders.ppg.name} ${away.leaders.ppg.ppg} ppg</li>
@@ -56,16 +60,20 @@
             <li>${away.leaders.spg.name} ${away.leaders.spg.spg} spg</li>
         </ul>
     </div>
+    <div class="clearfix visible-sm-block"></div>
+    <div class="clearfix visible-xs-block"></div>
 </div>
 <div class="row preview">
-    <div class="col-xs-3 row">
+    <div class="col-xs-12 col-sm-3 logo">
         <img src="${gameInfo.homeLogo}"/>
         <ul class="standings">
             <li>Record: ${home.standings.record} (${home.standings.recentRecord})</li>
-            <li>${home.standings.conference} (${home.standings.conferenceStanding}), ${home.standings.division} (${home.standings.divisionStanding})</li>
+            <li>${home.standings.conference} (${home.standings.conferenceStanding})</li>
+            <li>${home.standings.division} (${home.standings.divisionStanding})</li>
         </ul>
     </div>
-    <div class="col-xs-3">
+    <div class="clearfix visible-xs-block"></div>
+    <div class="col-xs-12 col-sm-3">
         <h4 class="ranks">Ranks</h4>
         <ul class="ranks">
             <li>${home.rank.ortg} ORTG (${home.rank.ortgRank})</li>
@@ -75,7 +83,8 @@
             <li>${home.rank.ts} DRB% (${home.rank.tsRank})</li>
         </ul>
     </div>
-    <div class="col-xs-3">
+    <div class="clearfix visible-xs-block"></div>
+    <div class="col-xs-12 col-sm-3">
         <h4 class="results">Latest Results</h4>
         <ul class="results">
             <#list home.results as r>
@@ -83,7 +92,8 @@
             </#list>
         </ul>
     </div>
-    <div class="col-xs-3">
+    <div class="clearfix visible-xs-block"></div>
+    <div class="col-xs-12 col-sm-3">
         <h4 class="leaders">Leaders</h4>
         <ul class="leaders">
             <li>${home.leaders.ppg.name} ${home.leaders.ppg.ppg} ppg</li>
@@ -93,4 +103,7 @@
             <li>${home.leaders.spg.name} ${home.leaders.spg.spg} spg</li>
         </ul>
     </div>
+    <div class="clearfix visible-sm-block"></div>
+    <div class="clearfix visible-xs-block"></div>
+
 </div>

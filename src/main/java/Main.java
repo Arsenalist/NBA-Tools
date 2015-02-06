@@ -49,7 +49,7 @@ static {
                 resp.getWriter().print(writer.getBuffer().toString());
             } else if (req.getRequestURI().endsWith("/result")) {
                 String team = req.getParameter("team");
-                boolean responsive = req.getParameter("responsive") != null;
+                boolean responsive = "bootstrap".equals(req.getParameter("responsive"));
                 NBA nba = new NBA();
                 String html = nba.preview(team, responsive);
                 Template template = Main.cfg.getTemplate("result.html");
