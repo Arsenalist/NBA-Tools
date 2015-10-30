@@ -230,7 +230,7 @@ public class NBA {
 	}
 
 	public List<PlayerSeason> getSeasonStats(String team) throws Exception {
-		String url = "http://www.basketball-reference.com/teams/" + team + "/2015.html";
+		String url = "http://www.basketball-reference.com/teams/" + team + "/2016.html";
 		Document doc = Jsoup.connect(url).get();
 		Element table = doc.getElementById("per_game");
 		Elements results = table.child(2).getElementsByTag("tr");
@@ -278,7 +278,7 @@ public class NBA {
 	}
 
 	public Map<String, TeamSeason> getTeamStats() throws Exception {
-		String url = "http://www.basketball-reference.com/leagues/NBA_2015.html";
+		String url = "http://www.basketball-reference.com/leagues/NBA_2016.html";
 		Document doc = Jsoup.connect(url).get();
 		Element table = doc.getElementById("misc");
 		Elements results = table.child(2).getElementsByTag("tr");
